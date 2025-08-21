@@ -1,0 +1,5 @@
+{
+  "name": "working on Plan X",
+  "description": "An application to manage educational materials like videos and PDFs, enhanced with AI-generated imagery. Users can add, view, update, and delete course content which is stored in a Google Sheet via a Google App Script API.",
+  "requestFramePermissions": []
+}
