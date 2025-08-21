@@ -1,12 +1,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { MCQ, Flashcard } from '../types';
 
-// The 'if (!process.env.API_KEY)' check was removed as it crashed the app in browser environments.
-// Optional chaining is used here to safely access `process.env.API_KEY`. If it doesn't exist,
-// an empty string is passed to the constructor. This prevents the app from crashing on load.
-// API calls will fail with an invalid key, but this is handled by the try/catch blocks below,
-// allowing the rest of the application to remain functional.
-const ai = new GoogleGenAI({ apiKey: process?.env?.API_KEY || "" });
+// Safely get the API key from process.env if it exists (in a Node.js-like environment),
+// otherwise, fall back to an empty string for browser environments. This prevents
+// the "process is not defined" ReferenceError. API calls will fail gracefully with
+// an invalid key if it's not provided, which is handled by the try/catch blocks below.
+const apiKey = typeof process === 'undefined' ? '' : process.env?.API_KEY || '';
+const ai = new GoogleGenAI({ apiKey });
+
 
 /**
  * Resizes a base64 image string to a smaller size to reduce its length.
